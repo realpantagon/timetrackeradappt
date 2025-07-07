@@ -1,9 +1,11 @@
 import { useEffect, useState, useRef } from 'react'
+import { postToAirtable } from './postData.jsx'
 
 function Home({ username, setLoggedIn }) {
   const [currentTime, setCurrentTime] = useState(new Date())
   const [task, setTask] = useState('')
   const [description, setDescription] = useState('')
+  const [url, setUrl] = useState('')
 
   // Stopwatch state
   const [isRunning, setIsRunning] = useState(false)
@@ -41,19 +43,31 @@ function Home({ username, setLoggedIn }) {
   const handleToggle = () => setIsRunning(running => !running)
 
   // Submit handler (send username, date, task, description, time)
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const data = {
-      username,
-      date: currentTime.toLocaleDateString(),
-      task,
-      description,
-      time: formatElapsed(elapsed)
+      Date: currentTime.toLocaleDateString('en-CA'), // "YYYY-MM-DD"
+      Task: task,
+      Description: description,
+      "Task URL": url,
+      Duration: elapsed,
+      Username: username
     }
-    alert(
-      `Username: ${data.username}\nDate: ${data.date}\nTask: ${data.task}\nDescription: ${data.description}\nTime: ${data.time}`
-    )
-    // You can send 'data' to your backend here if needed
+
+    try {
+      const result = await postToAirtable([
+        { fields: data }
+      ])
+      alert('Data sent to Airtable!')
+      // Optionally reset form here
+      setTask("");
+      setDescription("");
+      setUrl("");
+      setElapsed(0);
+      setIsRunning(false);
+    } catch (err) {
+      alert('Failed to send data: ' + err.message)
+    }
   }
 
   return (
@@ -87,6 +101,16 @@ function Home({ username, setLoggedIn }) {
             onChange={e => setDescription(e.target.value)}
             className="w-full px-3 py-2 border rounded"
             placeholder="Enter description"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold">Task URL</label>
+          <input
+            type="text"
+            value={url}
+            onChange={e => setUrl(e.target.value)}
+            className="w-full px-3 py-2 border rounded"
+            placeholder="Enter Task URL"
           />
         </div>
         {/* Stopwatch and button */}
