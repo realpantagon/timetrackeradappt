@@ -256,7 +256,7 @@ export default function Home({ username = "John Doe", setLoggedIn }) {
         className={`backdrop-blur-xl border-b transition-all duration-300 ${darkMode ? "bg-black/20 border-white/10" : "bg-white/70 border-gray-200/50"
           }`}
       >
-        <div className="max-w-full mx-auto px-6 sm:px-8 lg:px-40 py-6">    /*aaaaaa */
+        <div className="max-w-full mx-auto px-6 sm:px-8 lg:px-40 py-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <h1
@@ -319,7 +319,7 @@ export default function Home({ username = "John Doe", setLoggedIn }) {
         </div>
       </div>
 
-      <div className="max-w-full mx-auto px-6 sm:px-8 lg:px-40 py-6"> /**aaaaaa */
+      <div className="max-w-full mx-auto px-6 sm:px-8 lg:px-40 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Form Section */}
           <div className="lg:col-span-1">

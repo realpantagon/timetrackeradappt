@@ -63,7 +63,7 @@ function Login({ setUsername, username, setLoggedIn }) {
             </div>
           </div>
           
-          {/* Form */}
+          {/* Form */}  
           <div className="p-6">
             <form onSubmit={handleLogin} className="space-y-5">
               <div className="space-y-2">
@@ -113,11 +113,11 @@ function Login({ setUsername, username, setLoggedIn }) {
             )}
             
             {/* Footer info */}
-            <div className="mt-6 text-center">
+            {/* <div className="mt-6 text-center">
               <p className="text-sm text-gray-400">
                 <span className="text-[#DA3761]">*</span> Required field
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
         
