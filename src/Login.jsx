@@ -45,29 +45,88 @@ function Login({ setUsername, username, setLoggedIn }) {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-80">
-        <h2 className="text-xl font-bold mb-4 text-center">Adappt Co. Time Tracker</h2>
-        <form onSubmit={handleLogin}>
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="w-full px-3 py-2 border rounded mb-4"
-            required
-          />
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
-            disabled={isLoading}
-          >
-            {isLoading ? 'Logging in...' : 'Login'}
-          </button>
-        </form>
-        {error && (
-          <div className="mt-4 p-2 bg-red-100 text-red-700 rounded text-center">{error}</div>
-        )}
+    <div className="min-h-screen transition-all duration-500 bg-[#0D0C0F] flex items-center justify-center">
+      {/* Background pattern */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900/10 to-slate-900"></div>
+      
+      {/* Login Card */}
+      <div className="relative z-10 w-full max-w-md mx-4">
+        <div className="backdrop-blur-2xl shadow-2xl rounded-2xl border transition-all duration-300 hover:shadow-3xl bg-white/5 border-white/10">
+          {/* Header */}
+          <div className="px-6 py-6 border-b border-white/10">
+            <div className="text-center">
+              <h1 className="text-3xl font-bold flex items-center justify-center gap-3 text-white">
+                <span className="text-3xl">⏱️</span>
+                Time Tracker
+              </h1>
+              <p className="text-gray-300 mt-2 text-sm">Adappt Co.</p>
+            </div>
+          </div>
+          
+          {/* Form */}
+          <div className="p-6">
+            <form onSubmit={handleLogin} className="space-y-5">
+              <div className="space-y-2">
+                <label
+                  htmlFor="username"
+                  className="block text-sm font-semibold text-gray-200"
+                >
+                  Username <span className="text-[#DA3761]">*</span>
+                </label>
+                <input
+                  id="username"
+                  type="text"
+                  placeholder="Enter your username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="w-full px-3 py-3 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#DA3761] focus:border-transparent transition-all duration-300 backdrop-blur-sm border-white/20 bg-white/10 text-white placeholder-gray-400"
+                  required
+                />
+              </div>
+              
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full bg-[#DA3761] hover:bg-[#c42d56] text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#DA3761] hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                {isLoading ? (
+                  <div className="flex items-center justify-center gap-3">
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    Logging in...
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center gap-2">
+                    <span>🚪</span>
+                    Login
+                  </div>
+                )}
+              </button>
+            </form>
+            
+            {error && (
+              <div className="mt-4 border rounded-xl p-4 text-[#DA3761] transition-all duration-300 backdrop-blur-sm bg-[#DA3761]/10 border-[#DA3761]/30">
+                <div className="flex items-center gap-2">
+                  <span className="text-[#DA3761]">⚠️</span>
+                  <strong>Error:</strong> {error}
+                </div>
+              </div>
+            )}
+            
+            {/* Footer info */}
+            <div className="mt-6 text-center">
+              <p className="text-sm text-gray-400">
+                <span className="text-[#DA3761]">*</span> Required field
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        {/* Footer branding */}
+        <div className="text-center mt-6">
+          <p className="text-gray-400 text-sm">
+            Powered by Adappt Co. © 2025
+          </p>
+        </div>
       </div>
     </div>
   )
