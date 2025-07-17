@@ -1,23 +1,7 @@
 
-import MiroIcon from "../assets/Icon/Miro.png"
-import FigmaIcon from "../assets/Icon/figma.png"
-import ClickUpIcon from "../assets/Icon/ClickUp.png"
-import GithubIcon from "../assets/Icon/github.png"
-import AirtableIcon from "../assets/Icon/airtable.png"
 
 export default function ResourceSection({ resources = [], darkMode }) {
   if (!resources.length) return null
-  // Map resource title or link to icon
-  const getIcon = (title, link) => {
-    const t = title.toLowerCase()
-    if (t.includes("idea board")) return MiroIcon
-    if (t.includes("design")) return FigmaIcon
-    if (t.includes("task management")) return ClickUpIcon
-    if (t.includes("github")) return GithubIcon
-    if (t.includes("airtable")) return AirtableIcon
-    // fallback: no icon
-    return null
-  }
 
   return (
     <div
@@ -33,8 +17,8 @@ export default function ResourceSection({ resources = [], darkMode }) {
         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-0">
           {resources.map((res, idx) => (
             <li key={idx} className="flex items-center gap-3 bg-white/0 rounded-xl p-2">
-              {getIcon(res.title, res.link) && (
-                <img src={getIcon(res.title, res.link)} alt={res.title + " icon"} className="w-7 h-7 rounded shadow border border-white/20 bg-white/40 object-contain" />
+              {res.icon && (
+                <img src={res.icon} alt={res.title + " icon"} className="w-7 h-7 rounded shadow border border-white/20 bg-white/40 object-contain" />
               )}
               <a
                 href={res.link}

@@ -7,6 +7,11 @@ import { getUserTime } from "./api/getusertime.jsx"
 import Header from "./Components/Header.jsx"
 import TimeEntryForm from "./Components/TimeEntryForm.jsx"
 import ResourceSection from "./Components/ResourceSection.jsx"
+import MiroIcon from "./assets/Icon/Miro.png"
+import FigmaIcon from "./assets/Icon/figma.png"
+import ClickUpIcon from "./assets/Icon/ClickUp.png"
+import GithubIcon from "./assets/Icon/github.png"
+import AirtableIcon from "./assets/Icon/airtable.png"
 
 export default function Home({ username = "John Doe", setLoggedIn }) {
   const [currentTime, setCurrentTime] = useState(new Date())
@@ -289,11 +294,11 @@ export default function Home({ username = "John Doe", setLoggedIn }) {
             {/* Resource Section */}
             <ResourceSection
               resources={[
-                { title: "Idea Board", link: "https://miro.com/app/board/uXjVIsv75gw=/" },
-                { title: "Design", link: "https://www.figma.com/design/6TFkczv5qq6a1QHmM2lzYf/ShareWarp---UI-Design?t=FT2SgTSq8ALKdhns-0" },
-                { title: "Task Management", link: "https://app.clickup.com/90181388683/v/l/6-901809124911-1?pr=90185269210" },
-                { title: "Github", link: "https://github.com/Adappt-Co" },
-                { title: "Airtable", link: "https://airtable.com/app27di9Mzgt9zhTa/tbl1oBXn1aYnv279m/viws3dB8KJtgLTO46?blocks=hide" }
+                { title: "Idea Board", link: "https://miro.com/app/board/uXjVIsv75gw=/", icon: MiroIcon },
+                { title: "Design", link: "https://www.figma.com/design/6TFkczv5qq6a1QHmM2lzYf/ShareWarp---UI-Design?t=FT2SgTSq8ALKdhns-0", icon: FigmaIcon },
+                { title: "Task Management", link: "https://app.clickup.com/90181388683/v/l/6-901809124911-1?pr=90185269210", icon: ClickUpIcon },
+                { title: "Github", link: "https://github.com/Adappt-Co", icon: GithubIcon },
+                { title: "Airtable", link: "https://airtable.com/app27di9Mzgt9zhTa/tbl1oBXn1aYnv279m/viws3dB8KJtgLTO46?blocks=hide", icon: AirtableIcon }
               ]}
               darkMode={darkMode}
             />
