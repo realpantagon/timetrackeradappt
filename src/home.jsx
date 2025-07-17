@@ -1,8 +1,12 @@
 "use client"
 
+
 import { useEffect, useState } from "react"
 import { postToAirtable } from "./api/postData.jsx"
 import { getUserTime } from "./api/getusertime.jsx"
+import Header from "./Components/Header.jsx"
+import TimeEntryForm from "./Components/TimeEntryForm.jsx"
+import ResourceSection from "./Components/ResourceSection.jsx"
 
 export default function Home({ username = "John Doe", setLoggedIn }) {
   const [currentTime, setCurrentTime] = useState(new Date())
@@ -252,385 +256,47 @@ export default function Home({ username = "John Doe", setLoggedIn }) {
         }`}
     >
       {/* Header Section */}
-      <div
-        className={`backdrop-blur-xl border-b transition-all duration-300 ${darkMode ? "bg-black/20 border-white/10" : "bg-white/70 border-gray-200/50"
-          }`}
-      >
-        <div className="max-w-full mx-auto px-6 sm:px-8 lg:px-40 py-6">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div>
-              <h1
-                className={`text-2xl sm:text-3xl font-bold flex items-center gap-3 transition-all duration-300 ${darkMode ? "text-white" : "text-gray-900"
-                  }`}
-              >
-                <span className="text-2xl">⏱️</span>
-                Welcome, {username}!
-              </h1>
-              <div
-                className={`flex items-center gap-4 sm:gap-6 mt-2 text-sm transition-all duration-300 ${darkMode ? "text-gray-300" : "text-gray-600"
-                  }`}
-              >
-                <div className="flex items-center gap-2">
-                  <span className="text-lg">📅</span>
-                  <span className="font-medium">{currentTime.toLocaleDateString()}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-lg">🕐</span>
-                  <span className="font-mono font-medium">{currentTime.toLocaleTimeString()}</span>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              {/* Dark Mode Toggle */}
-              <button
-                onClick={() => setDarkMode(!darkMode)}
-                className={`inline-flex items-center gap-2 px-4 py-2 border rounded-xl shadow-md text-sm font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#DA3761] hover:scale-105 ${darkMode
-                    ? "border-white/20 bg-white/10 text-gray-200 hover:bg-white/20 backdrop-blur-xl"
-                    : "border-gray-300 bg-white/80 text-gray-700 hover:bg-white backdrop-blur-xl"
-                  }`}
-              >
-                {darkMode ? (
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      fillRule="evenodd"
-                      d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                ) : (
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                  </svg>
-                )}
-                {darkMode ? "Light" : "Dark"}
-              </button>
-              <button
-                onClick={() => setLoggedIn?.(false)}
-                className={`inline-flex items-center gap-2 px-4 py-2 border rounded-xl shadow-md text-sm font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#DA3761] hover:scale-105 ${darkMode
-                    ? "border-white/20 bg-white/10 text-gray-200 hover:bg-white/20 backdrop-blur-xl"
-                    : "border-gray-300 bg-white/80 text-gray-700 hover:bg-white backdrop-blur-xl"
-                  }`}
-              >
-                <span>🚪</span>
-                Logout
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Header
+        username={username}
+        currentTime={currentTime}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        setLoggedIn={setLoggedIn}
+      />
 
       <div className="max-w-full mx-auto px-6 sm:px-8 lg:px-40 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Form Section */}
           <div className="lg:col-span-1">
-            <div
-              className={`backdrop-blur-2xl shadow-xl rounded-2xl border transition-all duration-300 hover:shadow-2xl ${darkMode ? "bg-white/5 border-white/10" : "bg-white/70 border-white/50"
-                }`}
-            >
-              <div
-                className={`px-6 py-4 border-b transition-all duration-300 ${darkMode ? "border-white/10" : "border-gray-200/50"
-                  }`}
-              >
-                <h2
-                  className={`text-xl font-bold flex items-center gap-2 transition-all duration-300 ${darkMode ? "text-white" : "text-gray-900"
-                    }`}
-                >
-                  <span className="text-[#DA3761] text-xl">➕</span>
-                  Add Time Entry
-                </h2>
-              </div>
-              <div className="p-6">
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  {/* Task Field - Required */}
-                  <div className="space-y-2">
-                    <label
-                      htmlFor="task"
-                      className={`block text-sm font-semibold transition-all duration-300 ${darkMode ? "text-gray-200" : "text-gray-700"
-                        }`}
-                    >
-                      Task <span className="text-[#DA3761]">*</span>
-                    </label>
-                    <input
-                      id="task"
-                      type="text"
-                      value={task}
-                      onChange={(e) => handleInputChange("task", e.target.value)}
-                      placeholder="Enter task name"
-                      className={`w-full px-3 py-3 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#DA3761] focus:border-transparent transition-all duration-300 backdrop-blur-sm ${validationErrors.task
-                          ? "border-[#DA3761] focus:ring-[#DA3761]"
-                          : darkMode
-                            ? "border-white/20 bg-white/10 text-white placeholder-gray-400"
-                            : "border-gray-300 bg-white/50 text-gray-900"
-                        }`}
-                    />
-                    {validationErrors.task && (
-                      <div className="flex items-center gap-2 text-[#DA3761] text-sm font-medium">
-                        <span className="text-[#DA3761]">⚠️</span>
-                        {validationErrors.task}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Mode Selection */}
-                  <div className="space-y-2">
-                    <label
-                      className={`block text-sm font-semibold transition-all duration-300 ${darkMode ? "text-gray-200" : "text-gray-700"
-                        }`}
-                    >
-                      Mode <span className="text-[#DA3761]">*</span>
-                    </label>
-                    <div className="grid grid-cols-2 gap-2">
-                      {["Manual", "Auto"].map((modeOption) => (
-                        <button
-                          key={modeOption}
-                          type="button"
-                          onClick={() => setMode(modeOption)}
-                          className={`px-3 py-3 text-sm font-semibold rounded-xl border transition-all duration-300 hover:scale-105 ${mode === modeOption
-                              ? "bg-[#DA3761] text-white border-[#DA3761] shadow-lg"
-                              : darkMode
-                                ? "bg-white/10 text-gray-200 border-white/20 hover:bg-white/20 backdrop-blur-sm"
-                                : "bg-white/50 text-gray-700 border-gray-300 hover:bg-white/80 backdrop-blur-sm"
-                            }`}
-                        >
-                          {modeOption}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Task Summary - Shows for all modes when data is available */}
-                  {(getCurrentStartTime() || getCurrentDuration() > 0) && (
-                    <div
-                      className={`rounded-xl p-4 border transition-all duration-300 backdrop-blur-sm ${darkMode
-                          ? "bg-gradient-to-r from-[#DA3761]/20 to-pink-900/20 border-[#DA3761]/30"
-                          : "bg-gradient-to-r from-[#DA3761]/10 to-pink-50 border-[#DA3761]/20"
-                        }`}
-                    >
-                      <h3
-                        className={`text-sm font-bold mb-3 flex items-center gap-2 transition-all duration-300 ${darkMode ? "text-[#DA3761]" : "text-[#DA3761]"
-                          }`}
-                      >
-                        <span>📊</span>
-                        Task Summary
-                      </h3>
-                      <div className="grid grid-cols-2 gap-4">
-                        {getCurrentStartTime() && (
-                          <div className="text-center">
-                            <div
-                              className={`text-xs font-bold uppercase tracking-wider transition-all duration-300 ${darkMode ? "text-[#DA3761]" : "text-[#DA3761]"
-                                }`}
-                            >
-                              Start Time
-                            </div>
-                            <div
-                              className={`text-xl font-bold font-mono mt-2 transition-all duration-300 ${darkMode ? "text-white" : "text-gray-900"
-                                }`}
-                            >
-                              {getCurrentStartTime()}
-                            </div>
-                          </div>
-                        )}
-                        {getCurrentDuration() > 0 && (
-                          <div className="text-center">
-                            <div
-                              className={`text-xs font-bold uppercase tracking-wider transition-all duration-300 ${darkMode ? "text-[#DA3761]" : "text-[#DA3761]"
-                                }`}
-                            >
-                              Duration
-                            </div>
-                            <div
-                              className={`text-xl font-bold font-mono mt-2 transition-all duration-300 ${darkMode ? "text-white" : "text-gray-900"
-                                }`}
-                            >
-                              {formatMinutesToHHMM(getCurrentDuration())}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Time Fields - Dynamic based on mode */}
-                  {mode === "Manual" && (
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-1 gap-4">
-                        <div className="space-y-2">
-                          <label
-                            htmlFor="startDateTime"
-                            className={`block text-sm font-semibold transition-all duration-300 ${darkMode ? "text-gray-200" : "text-gray-700"
-                              }`}
-                          >
-                            Start Date and Time <span className="text-[#DA3761]">*</span>
-                          </label>
-                          <input
-                            id="startDateTime"
-                            type="datetime-local"
-                            value={startDateTime}
-                            onChange={(e) => handleInputChange("startDateTime", e.target.value)}
-                            className={`w-full px-3 py-3 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#DA3761] focus:border-transparent transition-all duration-300 backdrop-blur-sm ${validationErrors.startDateTime
-                                ? "border-[#DA3761] focus:ring-[#DA3761]"
-                                : darkMode
-                                  ? "border-white/20 bg-white/10 text-white"
-                                  : "border-gray-300 bg-white/50 text-gray-900"
-                              }`}
-                          />
-                          {validationErrors.startDateTime && (
-                            <div className="flex items-center gap-2 text-[#DA3761] text-sm font-medium">
-                              <span className="text-[#DA3761]">⚠️</span>
-                              {validationErrors.startDateTime}
-                            </div>
-                          )}
-                        </div>
-                        <div className="space-y-2">
-                          <label
-                            htmlFor="endDateTime"
-                            className={`block text-sm font-semibold transition-all duration-300 ${darkMode ? "text-gray-200" : "text-gray-700"
-                              }`}
-                          >
-                            End Date and Time <span className="text-[#DA3761]">*</span>
-                          </label>
-                          <input
-                            id="endDateTime"
-                            type="datetime-local"
-                            value={endDateTime}
-                            onChange={(e) => handleInputChange("endDateTime", e.target.value)}
-                            className={`w-full px-3 py-3 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#DA3761] focus:border-transparent transition-all duration-300 backdrop-blur-sm ${validationErrors.endDateTime
-                                ? "border-[#DA3761] focus:ring-[#DA3761]"
-                                : darkMode
-                                  ? "border-white/20 bg-white/10 text-white"
-                                  : "border-gray-300 bg-white/50 text-gray-900"
-                              }`}
-                          />
-                          {validationErrors.endDateTime && (
-                            <div className="flex items-center gap-2 text-[#DA3761] text-sm font-medium">
-                              <span className="text-[#DA3761]">⚠️</span>
-                              {validationErrors.endDateTime}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      {startDateTime && endDateTime && (
-                        <div
-                          className={`rounded-xl p-3 transition-all duration-300 backdrop-blur-sm ${darkMode ? "bg-[#DA3761]/20" : "bg-[#DA3761]/10"
-                            }`}
-                        >
-                          <div
-                            className={`text-sm font-medium transition-all duration-300 ${darkMode ? "text-white" : "text-gray-800"
-                              }`}
-                          >
-                            <strong>Duration Preview:</strong> {(() => {
-                              const start = new Date(startDateTime)
-                              const end = new Date(endDateTime)
-                              const diffMs = end - start
-                              if (diffMs <= 0) return "Invalid time range"
-                              const diffMins = Math.round(diffMs / (1000 * 60))
-                              const hours = Math.floor(diffMins / 60)
-                              const minutes = diffMins % 60
-                              return `${hours}h ${minutes}m`
-                            })()}
-                          </div>
-                          {startDateTime &&
-                            endDateTime &&
-                            new Date(startDateTime).toDateString() !== new Date(endDateTime).toDateString() && (
-                              <div
-                                className={`text-xs mt-2 transition-all duration-300 ${darkMode ? "text-[#DA3761]" : "text-[#DA3761]"
-                                  }`}
-                              >
-                                ⚠️ This task spans multiple days
-                              </div>
-                            )}
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {mode === "Auto" && (
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <label
-                          htmlFor="startTime"
-                          className={`block text-sm font-semibold transition-all duration-300 ${darkMode ? "text-gray-200" : "text-gray-700"
-                            }`}
-                        >
-                          Start Time <span className="text-[#DA3761]">*</span>
-                        </label>
-                        <input
-                          id="startTime"
-                          type="time"
-                          value={startTime}
-                          onChange={(e) => handleInputChange("startTime", e.target.value)}
-                          className={`w-full px-3 py-3 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#DA3761] focus:border-transparent transition-all duration-300 backdrop-blur-sm ${validationErrors.startTime
-                              ? "border-[#DA3761] focus:ring-[#DA3761]"
-                              : darkMode
-                                ? "border-white/20 bg-white/10 text-white"
-                                : "border-gray-300 bg-white/50 text-gray-900"
-                            }`}
-                        />
-                        {validationErrors.startTime && (
-                          <div className="flex items-center gap-2 text-[#DA3761] text-sm font-medium">
-                            <span className="text-[#DA3761]">⚠️</span>
-                            {validationErrors.startTime}
-                          </div>
-                        )}
-                      </div>
-                      <div className="space-y-2">
-                        <label
-                          htmlFor="duration"
-                          className={`block text-sm font-semibold transition-all duration-300 ${darkMode ? "text-gray-200" : "text-gray-700"
-                            }`}
-                        >
-                          Duration (minutes) <span className="text-[#DA3761]">*</span>
-                        </label>
-                        <input
-                          id="duration"
-                          type="number"
-                          min="1"
-                          value={duration}
-                          onChange={(e) => handleInputChange("duration", e.target.value)}
-                          placeholder="e.g. 30"
-                          className={`w-full px-3 py-3 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#DA3761] focus:border-transparent transition-all duration-300 backdrop-blur-sm ${validationErrors.duration
-                              ? "border-[#DA3761] focus:ring-[#DA3761]"
-                              : darkMode
-                                ? "border-white/20 bg-white/10 text-white placeholder-gray-400"
-                                : "border-gray-300 bg-white/50 text-gray-900"
-                            }`}
-                        />
-                        {validationErrors.duration && (
-                          <div className="flex items-center gap-2 text-[#DA3761] text-sm font-medium">
-                            <span className="text-[#DA3761]">⚠️</span>
-                            {validationErrors.duration}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Required fields note */}
-                  <div
-                    className={`text-sm flex items-center gap-2 transition-all duration-300 ${darkMode ? "text-gray-400" : "text-gray-500"
-                      }`}
-                  >
-                    <span className="text-[#DA3761]">*</span>
-                    Required fields
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={submitting}
-                    className="w-full bg-[#DA3761] hover:bg-[#c42d56] text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#DA3761] hover:scale-105 shadow-lg hover:shadow-xl"
-                  >
-                    {submitting ? (
-                      <div className="flex items-center justify-center gap-3">
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                        Submitting...
-                      </div>
-                    ) : (
-                      "Add Time Entry"
-                    )}
-                  </button>
-                </form>
-              </div>
-            </div>
+            <TimeEntryForm
+              task={task}
+              mode={mode}
+              startTime={startTime}
+              endTime={endTime}
+              startDateTime={startDateTime}
+              endDateTime={endDateTime}
+              duration={duration}
+              darkMode={darkMode}
+              validationErrors={validationErrors}
+              submitting={submitting}
+              handleInputChange={handleInputChange}
+              handleSubmit={handleSubmit}
+              setMode={setMode}
+              getCurrentStartTime={getCurrentStartTime}
+              getCurrentDuration={getCurrentDuration}
+              formatMinutesToHHMM={formatMinutesToHHMM}
+            />
+            {/* Resource Section */}
+            <ResourceSection
+              resources={[
+                { title: "Idea Board", link: "https://miro.com/app/board/uXjVIsv75gw=/" },
+                { title: "Design", link: "https://www.figma.com/design/6TFkczv5qq6a1QHmM2lzYf/ShareWarp---UI-Design?t=FT2SgTSq8ALKdhns-0" },
+                { title: "Task Management", link: "https://app.clickup.com/90181388683/v/l/6-901809124911-1?pr=90185269210" },
+                { title: "Github", link: "https://github.com/Adappt-Co" },
+                { title: "Airtable", link: "https://airtable.com/app27di9Mzgt9zhTa/tbl1oBXn1aYnv279m/viws3dB8KJtgLTO46?blocks=hide" }
+              ]}
+              darkMode={darkMode}
+            />
           </div>
 
           {/* Records Section */}
