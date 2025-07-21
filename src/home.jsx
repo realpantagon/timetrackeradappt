@@ -295,6 +295,7 @@ export default function Home({ username = "John Doe", setLoggedIn }) {
             <ResourceSection
               resources={[
                 { title: "Idea Board", link: "https://miro.com/app/board/uXjVIsv75gw=/", icon: MiroIcon },
+                { title: "Database", link: "https://miro.com/app/board/uXjVIlcC1I4=/", icon: MiroIcon },
                 { title: "Design", link: "https://www.figma.com/design/6TFkczv5qq6a1QHmM2lzYf/ShareWarp---UI-Design?t=FT2SgTSq8ALKdhns-0", icon: FigmaIcon },
                 { title: "Task Management", link: "https://app.clickup.com/90181388683/v/l/6-901809124911-1?pr=90185269210", icon: ClickUpIcon },
                 { title: "Github", link: "https://github.com/Adappt-Co", icon: GithubIcon },
