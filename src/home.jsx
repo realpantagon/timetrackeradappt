@@ -12,6 +12,8 @@ import FigmaIcon from "./assets/Icon/figma.png"
 import ClickUpIcon from "./assets/Icon/ClickUp.png"
 import GithubIcon from "./assets/Icon/github.png"
 import AirtableIcon from "./assets/Icon/airtable.png"
+import favicon from "./assets/Icon/favicon.svg"
+import Sheet from "./assets/Icon/Sheets.png"
 
 export default function Home({ username = "John Doe", setLoggedIn }) {
   const [currentTime, setCurrentTime] = useState(new Date())
@@ -294,12 +296,14 @@ export default function Home({ username = "John Doe", setLoggedIn }) {
             {/* Resource Section */}
             <ResourceSection
               resources={[
-                { title: "Idea Board", link: "https://miro.com/app/board/uXjVIsv75gw=/", icon: MiroIcon },
-                { title: "Database", link: "https://miro.com/app/board/uXjVIlcC1I4=/", icon: MiroIcon },
+                { title: "Idea Board", link: "https://miro.com/app/board/uXjVJWUR6og=/", icon: MiroIcon },
+                { title: "Database", link: "https://miro.com/app/board/uXjVJVgpVYQ=/", icon: MiroIcon },
                 { title: "Design", link: "https://www.figma.com/design/6TFkczv5qq6a1QHmM2lzYf/ShareWarp---UI-Design?t=FT2SgTSq8ALKdhns-0", icon: FigmaIcon },
                 { title: "Task Management", link: "https://app.clickup.com/90181388683/v/l/6-901809124911-1?pr=90185269210", icon: ClickUpIcon },
                 { title: "Github", link: "https://github.com/Adappt-Co", icon: GithubIcon },
-                { title: "Airtable", link: "https://airtable.com/app27di9Mzgt9zhTa/tbl1oBXn1aYnv279m/viws3dB8KJtgLTO46?blocks=hide", icon: AirtableIcon }
+                { title: "Airtable", link: "https://airtable.com/app27di9Mzgt9zhTa/tbl1oBXn1aYnv279m/viws3dB8KJtgLTO46?blocks=hide", icon: AirtableIcon },
+                { title: "Landing Page Mock", link: "https://share-me-landing.vercel.app/", icon: favicon },
+                { title: "Api Document", link: "https://docs.google.com/spreadsheets/d/1PuS2YQ3M-OCo1egDzyVDAGu2d2rybQgchK0Xhe5T5tI/edit?gid=1723589398#gid=1723589398", icon: Sheet }
               ]}
               darkMode={darkMode}
             />
