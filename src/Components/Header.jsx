@@ -1,4 +1,5 @@
 import React from "react"
+import Profile from "./Profile"
 
 export default function Header({ username, currentTime, darkMode, setDarkMode, setLoggedIn }) {
   return (
@@ -7,23 +8,22 @@ export default function Header({ username, currentTime, darkMode, setDarkMode, s
     >
       <div className="max-w-full mx-auto px-6 sm:px-8 lg:px-40 py-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <h1
-              className={`text-2xl sm:text-3xl font-bold flex items-center gap-3 transition-all duration-300 ${darkMode ? "text-white" : "text-gray-900"}`}
-            >
-              <span className="text-2xl">⏱️</span>
-              Welcome, {username}!
-            </h1>
-            <div
-              className={`flex items-center gap-4 sm:gap-6 mt-2 text-sm transition-all duration-300 ${darkMode ? "text-gray-300" : "text-gray-600"}`}
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-lg">📅</span>
-                <span className="font-medium">{currentTime.toLocaleDateString()}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-lg">🕐</span>
-                <span className="font-mono font-medium">{currentTime.toLocaleTimeString()}</span>
+          <div className="flex items-center gap-6">
+            <div className="flex flex-col items-center">
+              <Profile username={username} big={true} darkMode={darkMode} />
+            </div>
+            <div>
+              <div
+                className={`flex items-center gap-4 sm:gap-6 mt-2 text-sm transition-all duration-300 ${darkMode ? "text-gray-300" : "text-gray-600"}`}
+              >
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">📅</span>
+                  <span className="font-medium">{currentTime.toLocaleDateString()}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">🕐</span>
+                  <span className="font-mono font-medium">{currentTime.toLocaleTimeString()}</span>
+                </div>
               </div>
             </div>
           </div>
